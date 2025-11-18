@@ -1,6 +1,8 @@
 import { el } from "./utils/dom.js";
+import { pageManager } from "./pageManager.js";
 
 export function ui(container, page, data) {
+  container.innerHTML = "";
   if (page === "main") {
     data.results.map((element) => {
       const card = el("div", { classes: ["card"] });
@@ -21,6 +23,16 @@ export function ui(container, page, data) {
         attrs: [{ href: `episodeInfo.html?ep=${element.episode_id}` }],
         text: "Полное описание",
       });
+
+      cardLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          const epId = element.episode_id;
+          history.pushState(null, '', `episodeInfo.html?ep=${epId}`);
+          
+          const url = '/episodeInfo.html';
+          const params = new URLSearchParams(`ep=${epId}`);
+          pageManager(container, url, params);  
+      })
 
       card.append(cardTitle, cardDescr, cardReleaseDate, cardLink);
       container.append(card);

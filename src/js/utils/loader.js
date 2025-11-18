@@ -6,7 +6,7 @@ export function load(links) {
     if (element.endsWith(".css")) {
       return new Promise((resolve) => {
         const link = el("link", {
-          attrs: [{ rel: "stylesheet" }, { href: `./assets/css/${element}` }],
+          attrs: [{ rel: "stylesheet" }, { href: `./src/css/${element}` }],
         });
         link.onload = () => resolve();
         link.onerror = () => resolve();
